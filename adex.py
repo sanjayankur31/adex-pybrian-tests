@@ -22,16 +22,16 @@
 from brian2 import *
 
 # Parameters
-C = 200 * pF
-gL = 12 * nS
+C = 130 * pF
+gL = 18 * nS
 taum = C / gL
-EL = -70 * mV
+EL = -58 * mV
 VT = -50 * mV
 DeltaT = 2 * mV
 Vcut = 0 * mV
 
 # Pick an electrophysiological behaviour
-tauw, a, b, Vr = 300*ms, 2*nS, .060*nA, -58*mV # 4b
+tauw, a, b, Vr = 150*ms, 4*nS, .120*nA, -50*mV # 4b
 
 eqs = """
 dvm/dt = (gL*(EL - vm) + gL*DeltaT*exp((vm - VT)/DeltaT) + I - w)/C : volt
@@ -47,7 +47,7 @@ spikes = SpikeMonitor(neuron)
 
 neuron.I = 0*nA
 run(100 * ms)
-neuron.I = .500*nA
+neuron.I = .400*nA
 run(1000 * ms)
 
 # We draw nicer spikes
