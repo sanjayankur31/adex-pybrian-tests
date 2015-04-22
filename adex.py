@@ -31,7 +31,7 @@ DeltaT = 2 * mV
 Vcut = 0 * mV
 
 # Pick an electrophysiological behaviour
-tauw, a, b, Vr = 300*ms, -10*nS, 0*nA, -58*mV
+tauw, a, b, Vr = 300*ms, -6*nS, 0*nA, -58*mV
 
 eqs = """
 dvm/dt = (gL*(EL - vm) + gL*DeltaT*exp((vm - VT)/DeltaT) + I - w)/C : volt
@@ -47,8 +47,8 @@ spikes = SpikeMonitor(neuron)
 
 neuron.I = 0*nA
 run(100 * ms)
-neuron.I = .300*nA
-run(1000 * ms)
+neuron.I = .110*nA
+run(5000 * ms)
 
 # We draw nicer spikes
 vm = trace[0].vm[:]
