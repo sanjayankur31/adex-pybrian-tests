@@ -22,8 +22,8 @@
 from brian2 import *
 
 # Parameters
-C = 100 * pF
-gL = 10 * nS
+C = 200 * pF
+gL = 12 * nS
 taum = C / gL
 EL = -65 * mV
 VT = -50 * mV
@@ -31,7 +31,7 @@ DeltaT = 2 * mV
 Vcut = 0 * mV
 
 # Pick an electrophysiological behaviour
-tauw, a, b, Vr = 90*ms, 20*nS, 0.30*nA, -47*mV # 4g
+tauw, a, b, Vr = 130*ms, -10*nS, 0.03*nA, -47*mV # 4g
 
 eqs = """
 dvm/dt = (gL*(EL - vm) + gL*DeltaT*exp((vm - VT)/DeltaT) + I - w)/C : volt
@@ -43,9 +43,10 @@ neuron = NeuronGroup(1, model=eqs, threshold='vm>Vcut',
                      reset="vm=Vr; w+=b")
 neuron.vm = EL
 trace = StateMonitor(neuron, 'vm', record=0)
+w_trace = StateMonitor(neuron, 'w', record=0)
 spikes = SpikeMonitor(neuron)
 
-neuron.I = .350*nA
+neuron.I = .091*nA
 run(1000 * ms)
 
 # We draw nicer spikes
@@ -57,4 +58,5 @@ for t in spikes.t:
 plot(trace.t / ms, vm / mV)
 xlabel('time (ms)')
 ylabel('membrane potential (mV)')
+#plot(trace.t / ms, w_trace[0].w / pA)
 show()
