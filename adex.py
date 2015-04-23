@@ -31,7 +31,7 @@ DeltaT = 2 * mV
 Vcut = 0 * mV
 
 # Pick an electrophysiological behaviour
-tauw, a, b, Vr = 90*ms, -10*nS, 0.03*nA, -47*mV # 4g
+tauw, a, b, Vr = 90*ms, 20*nS, 0.30*nA, -47*mV # 4g
 
 eqs = """
 dvm/dt = (gL*(EL - vm) + gL*DeltaT*exp((vm - VT)/DeltaT) + I - w)/C : volt
